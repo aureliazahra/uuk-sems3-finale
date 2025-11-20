@@ -13,14 +13,22 @@ class AuthService {
 
     return await http.post(
       url,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: {"Content-Type": "application/json"},
       body: jsonEncode({
         "name": name,
         "username": username,
         "password": password,
       }),
+    );
+  }
+
+  static Future<http.Response> login(String username, String password) async {
+    final url = Uri.parse('$baseUrl/login');
+
+    return await http.post(
+      url,
+      headers: {'Content-Type': 'applicatio/json'},
+      body: jsonEncode({"username: username, 'password": password}),
     );
   }
 }

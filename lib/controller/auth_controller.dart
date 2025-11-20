@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter/material.dart';
 import 'package:uuk_final_sems3/screen/auth/login_screen.dart';
+import 'package:uuk_final_sems3/screen/home/home_screen.dart';
 import 'package:uuk_final_sems3/services/auth_service.dart';
 
 class AuthController {
@@ -22,6 +24,35 @@ class AuthController {
       return responseData['message'] ?? "Registrasi Berhasil!";
     } else {
       return (responseData['message'] ?? "Terjadi kesalahan");
+    }
+  }
+
+  static Future<String> login(
+    BuildContext context,
+    String username,
+    String password,
+  ) async {
+    final result = await AuthService.login(username, password);
+    final responseData = jsonDecode(result.body);
+
+    if (result.statusCode == 200) {
+      final token = responseData['token'];
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+
+      return responseData['message'] ?? "Login Berhasil";
+    } else {
+      if (result.statusCode == 400) {
+        final firstError = responseData['errors'][0];
+        return (firstError['message'] ?? "Terjadi Kesalahan");
+      }
+      return (responseData['message'] ?? "Login Gagal");
     }
   }
 }
