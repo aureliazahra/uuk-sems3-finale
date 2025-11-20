@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uuk_final_sems3/widgets/grid_artikel_populer.dart';
 import '../../controller/artikel_controller.dart';
 import '../../models/artikel_model.dart';
+import '../../widgets/grid_artikel_all.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -87,6 +88,7 @@ class HomeScreen extends StatelessWidget {
                       final List<Blog> artikelPopuler = artikelList
                           .take(4)
                           .toList();
+                      final List<Blog> artikelAll = artikelList.toList();
 
                       return Column(
                         children: [
@@ -166,6 +168,8 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ],
                           ),
+                          SizedBox(height: 20),
+                          GridArtikelAll(artikelList: artikelAll),
                         ],
                       );
                     }
