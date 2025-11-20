@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+
+class GridArtikelPopuler extends StatelessWidget {
+  const GridArtikelPopuler({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+        childAspectRatio: 0.8,
+      ),
+      itemCount: 4,
+      itemBuilder: (context, index) {
+        return ClipRRect(
+          borderRadius: BorderRadiusGeometry.circular(15),
+          child: Stack(
+            children: [
+              //foto background wisata
+              Image.asset(
+                'assets/images/bromo.png',
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+                errorBuilder: (context, error, stackTrace) {
+                  print(error);
+                  return Center(
+                    child: Icon(Icons.broken_image, color: Colors.red),
+                  );
+                },
+              ),
+              //end foto background wisata
+
+              //Nama tempat wisata
+
+              //end nama tempat wisata
+
+              // icon rating
+
+              // end icon rating
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
