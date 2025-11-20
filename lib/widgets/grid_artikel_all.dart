@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../models/artikel_model.dart';
+import '../screen//articles/detail_screen.dart';
 
 class GridArtikelAll extends StatelessWidget {
   final List<Blog> artikelList;
@@ -41,10 +42,7 @@ class GridArtikelAll extends StatelessWidget {
             //judul artikel
             Text(
               artikel.title,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold
-              ),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

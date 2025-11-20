@@ -35,7 +35,9 @@ class DetailScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           icon: const Icon(
                             Icons.arrow_back_ios,
                             color: Color(0xffd1a824),
@@ -120,15 +122,10 @@ class DetailScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 10),
-                    Text(
-                      "Author Name",
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    )
+                    Text("Author Name", style: TextStyle(fontSize: 14)),
                   ],
                 ),
-                SizedBox(height: 10,),
+                SizedBox(height: 10),
                 Row(
                   children: [
                     CircleAvatar(
@@ -141,12 +138,7 @@ class DetailScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 10),
-                    Text(
-                      "26 - 9 - 2025",
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    )
+                    Text("26 - 9 - 2025", style: TextStyle(fontSize: 14)),
                   ],
                 ),
                 //end informassi artikel

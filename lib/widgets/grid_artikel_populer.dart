@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/artikel_model.dart';
+import '../screen/articles/detail_screen.dart';
 
 class GridArtikelPopuler extends StatelessWidget {
   final List<Blog> artikelList;
@@ -20,67 +21,72 @@ class GridArtikelPopuler extends StatelessWidget {
       itemCount: 4,
       itemBuilder: (context, index) {
         final artikel = artikelList[index];
-        return ClipRRect(
-          borderRadius: BorderRadiusGeometry.circular(15),
-          child: Stack(
-            children: [
-              //foto background wisata
-              Image.network(
-                '$baseUrl/${artikel.image}',
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
-                errorBuilder: (context, error, stackTrace) {
-                  print(error);
-                  return Center(
-                    child: Icon(Icons.broken_image, color: Colors.red),
-                  );
-                },
-              ),
-              //end foto background wisata
-              //Nama tempat wisata
-              Positioned(
-                left: 10,
-                bottom: 40,
-                child: Container(
-                  height: 20,
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 1),
-                  decoration: BoxDecoration(
-                    color: Colors.black54,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Text(
-                    artikel.title,
-                    style: TextStyle(color: Colors.white, fontSize: 12),
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(),));
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadiusGeometry.circular(15),
+            child: Stack(
+              children: [
+                //foto background wisata
+                Image.network(
+                  '$baseUrl/${artikel.image}',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                  errorBuilder: (context, error, stackTrace) {
+                    print(error);
+                    return Center(
+                      child: Icon(Icons.broken_image, color: Colors.red),
+                    );
+                  },
+                ),
+                //end foto background wisata
+                //Nama tempat wisata
+                Positioned(
+                  left: 10,
+                  bottom: 40,
+                  child: Container(
+                    height: 20,
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 1),
+                    decoration: BoxDecoration(
+                      color: Colors.black54,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Text(
+                      artikel.title,
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
                   ),
                 ),
-              ),
-              //end nama tempat wisata
-              // icon rating
-              Positioned(
-                left: 10,
-                bottom: 10,
-                child: Container(
-                  height: 20,
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 1),
-                  decoration: BoxDecoration(
-                    color: Colors.black54,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.star, color: Colors.yellow, size: 15),
-                      SizedBox(width: 4),
-                      Text(
-                        "4.1",
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                    ],
+                //end nama tempat wisata
+                // icon rating
+                Positioned(
+                  left: 10,
+                  bottom: 10,
+                  child: Container(
+                    height: 20,
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 1),
+                    decoration: BoxDecoration(
+                      color: Colors.black54,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.star, color: Colors.yellow, size: 15),
+                        SizedBox(width: 4),
+                        Text(
+                          "4.1",
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // end icon rating
-            ],
+                // end icon rating
+              ],
+            ),
           ),
         );
       },
