@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uuk_final_sems3/widgets/grid_artikel_populer.dart';
+import '../../controller/artikel_controller.dart';
+import '../../models/artikel_model.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -70,12 +72,25 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 20),
                 Text(
                   "Popular",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                GridArtikelPopuler(),
+                FutureBuilder(
+                  future: ArtikelController.getArtikel(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else {
+                      final artikelList = snapshot.data ?? [];
+                      final List<Blog> artikelPopuler = artikelList
+                          .take(4)
+                          .toList();
+
+                      return GridArtikelPopuler(artikelList: artikelPopuler);
+                    }
+                  },
+                ),
                 //end gris artiker populer
               ],
             ),

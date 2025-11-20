@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import '../models/artikel_model.dart';
 
 class GridArtikelPopuler extends StatelessWidget {
-  const GridArtikelPopuler({super.key});
+  final List<Blog> artikelList;
+  const GridArtikelPopuler({super.key, required this.artikelList});
 
   @override
   Widget build(BuildContext context) {
+    const baseUrl = 'https://api-pariwisata.rakryan.id';
     return GridView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
@@ -16,13 +19,14 @@ class GridArtikelPopuler extends StatelessWidget {
       ),
       itemCount: 4,
       itemBuilder: (context, index) {
+        final artikel = artikelList[index];
         return ClipRRect(
           borderRadius: BorderRadiusGeometry.circular(15),
           child: Stack(
             children: [
               //foto background wisata
-              Image.asset(
-                'assets/images/bromo.png',
+              Image.network(
+                '$baseUrl/${artikel.image}',
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: double.infinity,
@@ -46,7 +50,7 @@ class GridArtikelPopuler extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Text(
-                    "Gunung Bromo",
+                    artikel.title,
                     style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ),
@@ -69,10 +73,8 @@ class GridArtikelPopuler extends StatelessWidget {
                       SizedBox(width: 4),
                       Text(
                         "4.1",
-                        style: TextStyle(
-                          color: Colors.white, fontSize: 12,
-                        ),
-                      )
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
                     ],
                   ),
                 ),
