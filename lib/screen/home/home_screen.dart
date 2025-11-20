@@ -5,10 +5,81 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(child: Scaffold(
-      body: Center(
-        child: Text("Home Screen"),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //header
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: const AssetImage(
+                        'assets/images/profile.jpg',
+                      ),
+                      radius: 35,
+                    ),
+                    SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Hello",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text("Username", style: TextStyle(fontSize: 15)),
+                      ],
+                    ),
+                    Spacer(),
+                    Icon(
+                      Icons.notifications,
+                      color: Color(0xffd1a824),
+                      size: 30,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                //end header
+
+                //search bar
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: "Cari Tempat Wisata",
+                    prefixIcon: const Icon(Icons.search),
+                    filled: true,
+                    fillColor: Color(0xFFD1A824).withOpacity(0.1),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                  onChanged: (value) {
+                    print("Kata kunci: $value");
+                  },
+                ),
+                //end search bar
+
+                //grid artiker populer
+                SizedBox(height: 20),
+                Text(
+                  "Popular",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold
+                  ),
+                )
+                //end gris artiker populer
+              ],
+            ),
+          ),
+        ),
       ),
-    ));
+    );
   }
 }
