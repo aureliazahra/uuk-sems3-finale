@@ -88,7 +88,20 @@ class HomeScreen extends StatelessWidget {
                           .take(4)
                           .toList();
 
-                      return GridArtikelPopuler(artikelList: artikelPopuler);
+                      return Column(
+                        children: [
+                          GridArtikelPopuler(artikelList: artikelPopuler),
+                          SizedBox(height: 20),
+                          Container(
+                            width: double.infinity,
+                            height: 90,
+                            decoration: BoxDecoration(
+                              color: Color(0xffd1a824),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          )
+                        ],
+                      );
                     }
                   },
                 ),
