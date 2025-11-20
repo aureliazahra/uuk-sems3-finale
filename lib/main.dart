@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Jelajah Nusantara',
       home: DetailScreen(),
+      theme: ThemeData(
+        fontFamily: 'Poppins'
+      ),
       debugShowCheckedModeBanner: false,
     );
   }

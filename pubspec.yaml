@@ -79,6 +79,9 @@ flutter:
   - family: NicoMoji
     fonts:
       - asset: assets/fonts/NicoMoji-Regular.ttf
+  - family: Poppins
+    fonts:
+      - asset: assets/fonts/Poppins-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
