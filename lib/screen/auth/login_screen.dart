@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuk_final_sems3/controller/auth_controller.dart';
 import 'package:uuk_final_sems3/screen/auth/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -10,6 +11,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _isObscure = true;
+
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 5),
                     TextFormField(
+                      controller: usernameController,
                       decoration: InputDecoration(
                         hintText: 'Masukkan Username Kamu',
                         enabledBorder: OutlineInputBorder(
@@ -94,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 5),
                     TextFormField(
+                      controller: passwordController,
                       obscureText: _isObscure,
                       decoration: InputDecoration(
                         hintText: 'Masukkan Password Kamu',
@@ -147,7 +153,16 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ElevatedButton(
-                onPressed: () => {},
+                onPressed: () async {
+                  final message = await AuthController.login(
+                    context,
+                    usernameController.text,
+                    passwordController.text,
+                  );
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text(message)));
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xffd1a824),
                   minimumSize: Size(double.infinity, 55),

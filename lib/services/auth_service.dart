@@ -27,8 +27,8 @@ class AuthService {
 
     return await http.post(
       url,
-      headers: {'Content-Type': 'applicatio/json'},
-      body: jsonEncode({"username: username, 'password": password}),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({"username": username, "password": password}),
     );
   }
 }
