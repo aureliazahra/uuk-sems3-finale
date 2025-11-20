@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuk_final_sems3/widgets/grid_artikel_populer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -73,7 +74,8 @@ class HomeScreen extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.bold
                   ),
-                )
+                ),
+                GridArtikelPopuler(),
                 //end gris artiker populer
               ],
             ),
