@@ -34,7 +34,22 @@ class GridArtikelPopuler extends StatelessWidget {
                 },
               ),
               //end foto background wisata
-
+              Positioned(
+                left: 10,
+                bottom: 40,
+                child: Container(
+                  height: 20,
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 1),
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Text(
+                    "Gunung Bromo",
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ),
+              ),
               //Nama tempat wisata
 
               //end nama tempat wisata
