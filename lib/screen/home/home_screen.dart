@@ -146,6 +146,26 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Artikel lainnya",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                "See all",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xffd1a824),
+                                ),
+                              ),
+                            ],
+                          ),
                         ],
                       );
                     }
