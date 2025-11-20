@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuk_final_sems3/screen/articles/detail_screen.dart';
 import 'package:uuk_final_sems3/screen/splash/splash_screen.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Jelajah Nusantara',
-      home: SplashScreen(),
+      home: DetailScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
