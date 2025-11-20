@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuk_final_sems3/screen/auth/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -119,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             _isObscure
                                 ? Icons.visibility_off
                                 : Icons.visibility,
-                            color: Color(0xffd1a84),
+                            color: Color(0xffd1a824),
                           ),
                           onPressed: () {
                             setState(() {
@@ -164,7 +165,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () => {},
+                onPressed: () => {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const RegisterScreen(),
+                    ),
+                  ),
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff6f2e5),
                   minimumSize: Size(double.infinity, 55),
