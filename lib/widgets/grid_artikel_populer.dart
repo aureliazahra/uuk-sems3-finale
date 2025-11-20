@@ -34,6 +34,7 @@ class GridArtikelPopuler extends StatelessWidget {
                 },
               ),
               //end foto background wisata
+              //Nama tempat wisata
               Positioned(
                 left: 10,
                 bottom: 40,
@@ -50,12 +51,32 @@ class GridArtikelPopuler extends StatelessWidget {
                   ),
                 ),
               ),
-              //Nama tempat wisata
-
               //end nama tempat wisata
-
               // icon rating
-
+              Positioned(
+                left: 10,
+                bottom: 10,
+                child: Container(
+                  height: 20,
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 1),
+                  decoration: BoxDecoration(
+                    color: Colors.black54,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.star, color: Colors.yellow, size: 15),
+                      SizedBox(width: 4),
+                      Text(
+                        "4.1",
+                        style: TextStyle(
+                          color: Colors.white, fontSize: 12,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
               // end icon rating
             ],
           ),
