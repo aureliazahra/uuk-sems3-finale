@@ -73,13 +73,83 @@ class DetailScreen extends StatelessWidget {
                   children: [
                     Icon(Icons.star, color: Color(0xffd1a824), size: 15),
                     SizedBox(width: 5),
-                    Text('4.5 (355 Reviews)', style: TextStyle(fontSize: 11),),
+                    Text('4.5 (355 Reviews)', style: TextStyle(fontSize: 11)),
                   ],
                 ),
                 //end judul artikel
                 //deskripsi
-                
+                SizedBox(height: 20),
+                Text(
+                  "Gunung Bromo adalah salah satu destinasi wisata alam paling ikonik di Indonesia, terkenal dengan pemandangan matahari terbitnya yang memukau dan lautan pasir yang luas",
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(fontSize: 14),
+                ),
                 //end deskripsi
+                //informasi artikel
+                SizedBox(height: 10),
+                Text(
+                  "Informasi Artikel",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 15,
+                      backgroundColor: Color(0xffd1a824),
+                      child: Icon(
+                        Icons.location_on_outlined,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Text("Gunung Bromo", style: TextStyle(fontSize: 14)),
+                  ],
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 15,
+                      backgroundColor: Color(0xddd1a824),
+                      child: Icon(
+                        Icons.person_2_rounded,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      "Author Name",
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 10,),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 15,
+                      backgroundColor: Color(0xddd1a824),
+                      child: Icon(
+                        Icons.calendar_month_outlined,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      "26 - 9 - 2025",
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    )
+                  ],
+                ),
+                //end informassi artikel
               ],
             ),
           ),
