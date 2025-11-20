@@ -99,7 +99,53 @@ class HomeScreen extends StatelessWidget {
                               color: Color(0xffd1a824),
                               borderRadius: BorderRadius.circular(15),
                             ),
-                          )
+                            child: Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/newspaper.png',
+                                    width: 40,
+                                    height: 40,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Lihat Artikel Kamu',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      Text(
+                                        "Yuk, Mulai Buat Artikelmu Sendiri",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                        Icons.arrow_forward,
+                                        color: Color(0xffd1a824),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       );
                     }
