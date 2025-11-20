@@ -74,6 +74,7 @@ class HomeScreen extends StatelessWidget {
                   "Popular",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
+                SizedBox(height: 10),
                 FutureBuilder(
                   future: ArtikelController.getArtikel(),
                   builder: (context, snapshot) {
