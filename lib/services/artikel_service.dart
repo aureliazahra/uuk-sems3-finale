@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,7 +9,7 @@ class ArtikelService {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
-    var url = Uri.parse("$baseUrl?page=$page&limit=$limit"); 
+    var url = Uri.parse("$baseUrl?page=$page&limit=$limit");
     return await http.get(
       url,
       headers: {
@@ -30,5 +31,31 @@ class ArtikelService {
         'Authorization': 'Bearer $token',
       },
     );
+  }
+
+  static Future<http.StreamedResponse> createArtikel(
+    File image,
+    String title,
+    String description,
+  ) async {
+    final uri = Uri.parse('$baseUrl/create');
+
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    var request = http.MultipartRequest("POST", uri);
+
+    //tambahkan header
+    request.headers['Authorization'] = 'Bearer $token';
+
+    //tambahkan field text
+    request.fields['title'] = title;
+    request.fields['description'] = description;
+    request.fields['date'] = DateTime.now().toString();
+
+    //tambahkan file gambar
+    request.files.add(await http.MultipartFile.fromPath('image', image.path));
+
+    return await request.send();
   }
 }

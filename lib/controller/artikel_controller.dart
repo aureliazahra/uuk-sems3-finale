@@ -1,6 +1,11 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart';
 import 'package:uuk_final_sems3/services/artikel_service.dart';
+import 'package:uuk_final_sems3/widgets/bottom_navbar.dart';
 import '../models/artikel_model.dart';
 
 class ArtikelController {
@@ -25,6 +30,32 @@ class ArtikelController {
       throw ('Kamu bekum mempunyai artikel');
     } else {
       throw ('Gagal memuat data artikel');
+    }
+  }
+
+  static Future<String> createArtikel(
+    File image,
+    String title,
+    String description,
+    BuildContext context,
+  ) async {
+    final result = await ArtikelService.createArtikel(
+      image,
+      title,
+      description,
+    );
+
+    final response = await http.Response.fromStream(result);
+    final ObjectResponse = jsonDecode(response.body);
+
+    if (response.statusCode == 201) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const BottomNavbar()),
+      );
+      return ObjectResponse['message'] ?? 'Tambah data berhasil';
+    } else {
+      return (ObjectResponse['messafe'] ?? 'Terjadi kesalahan');
     }
   }
 }

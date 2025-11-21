@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuk_final_sems3/controller/artikel_controller.dart';
 import 'package:uuk_final_sems3/widgets/image_input.dart';
 
 class ArticleFormScreen extends StatefulWidget {
@@ -13,6 +15,8 @@ class ArticleFormScreen extends StatefulWidget {
 }
 
 class _ArticleFormScreenState extends State<ArticleFormScreen> {
+  final TextEditingController judulController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
   String? imagePath;
 
   Future<void> _pickImage() async {
@@ -23,6 +27,28 @@ class _ArticleFormScreenState extends State<ArticleFormScreen> {
         imagePath = PickedFile.path;
       });
     }
+  }
+
+  Future<void> _create(String title, String description) async {
+    if (imagePath == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Pilih gambar terlebih dahulu')),
+      );
+      return;
+    }
+
+    final imageFile = File(imagePath!);
+
+    final message = await ArtikelController.createArtikel(
+      imageFile,
+      title,
+      description,
+      context,
+    );
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -47,8 +73,8 @@ class _ArticleFormScreenState extends State<ArticleFormScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              UploadGambarBox(onTap: _pickImage, imagePath: imagePath,),
-              SizedBox(height: 20,),
+              UploadGambarBox(onTap: _pickImage, imagePath: imagePath),
+              SizedBox(height: 20),
               // form judul artikel
               Text(
                 'Judul Artikel',
@@ -60,6 +86,7 @@ class _ArticleFormScreenState extends State<ArticleFormScreen> {
               ),
               const SizedBox(height: 5),
               TextFormField(
+                controller: judulController,
                 decoration: InputDecoration(
                   hintText: 'Masukkan Nama Lokasi',
                   isDense: true,
@@ -99,6 +126,7 @@ class _ArticleFormScreenState extends State<ArticleFormScreen> {
               ),
 
               TextFormField(
+                controller: descriptionController,
                 maxLines: 5,
                 minLines: 5,
                 keyboardType: TextInputType.multiline,
@@ -132,7 +160,14 @@ class _ArticleFormScreenState extends State<ArticleFormScreen> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(20),
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              final title = judulController.text;
+              final description = descriptionController.text;
+
+              if (widget.isEdit == false) {
+                _create(title, description);
+              }
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xffd1a824),
               minimumSize: const Size(double.infinity, 55),
