@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:uuk_final_sems3/screen/auth/login_screen.dart';
 import 'package:uuk_final_sems3/screen/home/home_screen.dart';
 import 'package:uuk_final_sems3/services/auth_service.dart';
+import 'package:uuk_final_sems3/widgets/bottom_navbar.dart';
 
 class AuthController {
   static Future<String> register(
@@ -43,7 +44,7 @@ class AuthController {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => const BottomNavbar()),
       );
 
       return responseData['message'] ?? "Login Berhasil";
