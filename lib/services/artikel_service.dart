@@ -17,4 +17,18 @@ class ArtikelService {
       },
     );
   }
+
+  static Future<http.Response> getMyArtikel() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    var url = Uri.parse("$baseUrl/user");
+    return await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+  }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:uuk_final_sems3/controller/artikel_controller.dart';
+import 'package:uuk_final_sems3/models/artikel_model.dart';
 import 'package:uuk_final_sems3/widgets/grid_my_artikel.dart';
 
 class MyArticlesScreen extends StatelessWidget {
@@ -72,11 +74,11 @@ class MyArticlesScreen extends StatelessWidget {
                       "List Artikel Kamu",
                       style: TextStyle(
                         fontSize: 16,
-                        fontWeight: FontWeight.w500
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     TextButton.icon(
-                      onPressed: () {}, 
+                      onPressed: () {},
                       icon: Icon(
                         Icons.add_circle_outline,
                         color: Color(0xffd1a824),
@@ -89,12 +91,32 @@ class MyArticlesScreen extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           fontSize: 12,
                         ),
-                      ),)
+                      ),
+                    ),
                   ],
                 ),
                 //end header list artikel saya
                 //gridview
-                GridMyArtikel(),
+                const SizedBox(height: 10),
+                FutureBuilder(
+                  future: ArtikelController.getMyArtikel(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text(
+                          "Terjadi kesalahan: ${snapshot.error}",
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                      );
+                    } else {
+                      final artikelList = snapshot.data ?? [];
+                      final List<Artikel> artikelAll = artikelList.toList();
+                      return GridMyArtikel(artikelList: artikelAll);
+                    }
+                  },
+                ),
                 //end grdview
               ],
             ),

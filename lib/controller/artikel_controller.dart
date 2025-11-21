@@ -14,4 +14,17 @@ class ArtikelController {
       throw Exception('Gagal memuat data artikel');
     }
   }
+
+  static Future<List<Artikel>> getMyArtikel() async {
+    final result = await ArtikelService.getMyArtikel();
+
+    if (result.statusCode == 200) {
+      final data = jsonDecode(result.body)['data'] as List<dynamic>?;
+      return data?.map((item) => Artikel.fromJson(item)).toList() ?? [];
+    } else if (result.statusCode == 400) {
+      throw ('Kamu bekum mempunyai artikel');
+    } else {
+      throw ('Gagal memuat data artikel');
+    }
+  }
 }
