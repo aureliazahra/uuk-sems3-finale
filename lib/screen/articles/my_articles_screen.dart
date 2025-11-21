@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:uuk_final_sems3/widgets/grid_my_artikel.dart';
 
 class MyArticlesScreen extends StatelessWidget {
   const MyArticlesScreen({super.key});
@@ -90,8 +91,11 @@ class MyArticlesScreen extends StatelessWidget {
                         ),
                       ),)
                   ],
-                )
+                ),
                 //end header list artikel saya
+                //gridview
+                GridMyArtikel(),
+                //end grdview
               ],
             ),
           ),
