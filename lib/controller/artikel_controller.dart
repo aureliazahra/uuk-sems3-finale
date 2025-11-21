@@ -58,4 +58,20 @@ class ArtikelController {
       return (ObjectResponse['messafe'] ?? 'Terjadi kesalahan');
     }
   }
+
+  static Future<String> deletedArtikel(String id, BuildContext context) async {
+    final result = await ArtikelService.deleteArtikel(id);
+
+    final responseData = jsonDecode(result.body);
+
+    if (result.statusCode == 200) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const BottomNavbar()),
+      );
+      return responseData['message'] ?? 'Delete data berhasil';
+    } else {
+      return (responseData['message'] ?? 'Terjadi Kesalahan');
+    }
+  }
 }

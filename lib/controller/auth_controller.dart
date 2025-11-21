@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:uuk_final_sems3/screen/auth/login_screen.dart';
 import 'package:uuk_final_sems3/screen/home/home_screen.dart';
+import 'package:uuk_final_sems3/services/artikel_service.dart';
 import 'package:uuk_final_sems3/services/auth_service.dart';
 import 'package:uuk_final_sems3/widgets/bottom_navbar.dart';
 
@@ -56,4 +57,6 @@ class AuthController {
       return (responseData['message'] ?? "Login Gagal");
     }
   }
+
+
 }

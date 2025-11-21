@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:uuk_final_sems3/controller/artikel_controller.dart';
 import 'package:uuk_final_sems3/models/artikel_model.dart';
 import 'package:uuk_final_sems3/screen/articles/detail_screen.dart';
 import 'package:uuk_final_sems3/screen/articles/form_screen.dart';
 
 class GridMyArtikel extends StatelessWidget {
-  
   final List<Artikel> artikelList;
   const GridMyArtikel({super.key, required this.artikelList});
 
@@ -84,7 +84,16 @@ class GridMyArtikel extends StatelessWidget {
                   ),
                   SizedBox(width: 5),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      final message = await ArtikelController.deletedArtikel(
+                        artikel.id,
+                        context,
+                      );
+
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text(message)));
+                    },
                     icon: const Icon(Icons.delete_rounded),
                     color: Colors.red,
                     iconSize: 17,

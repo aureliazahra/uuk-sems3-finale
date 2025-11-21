@@ -58,4 +58,18 @@ class ArtikelService {
 
     return await request.send();
   }
+
+  static Future<http.Response> deleteArtikel(String id) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    var url = Uri.parse("$baseUrl/delete/$id");
+    return await http.delete(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+  }
 }
