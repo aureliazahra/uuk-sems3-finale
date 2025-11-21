@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:uuk_final_sems3/controller/artikel_controller.dart';
 import 'package:uuk_final_sems3/models/artikel_model.dart';
+import 'package:uuk_final_sems3/screen/articles/form_screen.dart';
 import 'package:uuk_final_sems3/widgets/grid_my_artikel.dart';
 
 class MyArticlesScreen extends StatelessWidget {
@@ -78,7 +79,15 @@ class MyArticlesScreen extends StatelessWidget {
                       ),
                     ),
                     TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                ArticleFormScreen(isEdit: false),
+                          ),
+                        );
+                      },
                       icon: Icon(
                         Icons.add_circle_outline,
                         color: Color(0xffd1a824),

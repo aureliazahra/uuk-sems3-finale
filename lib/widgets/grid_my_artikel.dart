@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:uuk_final_sems3/models/artikel_model.dart';
 import 'package:uuk_final_sems3/screen/articles/detail_screen.dart';
+import 'package:uuk_final_sems3/screen/articles/form_screen.dart';
 
 class GridMyArtikel extends StatelessWidget {
+  
   final List<Artikel> artikelList;
   const GridMyArtikel({super.key, required this.artikelList});
 
@@ -63,7 +65,17 @@ class GridMyArtikel extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ArticleFormScreen(
+                            isEdit: true,
+                            artikelId: artikel.id,
+                          ),
+                        ),
+                      );
+                    },
                     icon: const Icon(Icons.edit),
                     color: Colors.blue,
                     iconSize: 17,
