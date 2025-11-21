@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:uuk_final_sems3/widgets/image_input.dart';
 
-class ArticleFormScreen extends StatelessWidget {
+class ArticleFormScreen extends StatefulWidget {
   final bool isEdit;
   final String? artikelId;
   const ArticleFormScreen({super.key, required this.isEdit, this.artikelId});
+
+  @override
+  State<ArticleFormScreen> createState() => _ArticleFormScreenState();
+}
+
+class _ArticleFormScreenState extends State<ArticleFormScreen> {
+  String? imagePath;
+
+  Future<void> _pickImage() async {
+    final picker = ImagePicker();
+    final PickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (PickedFile != null) {
+      setState(() {
+        imagePath = PickedFile.path;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +31,7 @@ class ArticleFormScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            isEdit ? 'Edit Artikel' : 'Tambah Artikel',
+            widget.isEdit ? 'Edit Artikel' : 'Tambah Artikel',
             style: TextStyle(color: Colors.white, fontSize: 15),
           ),
           backgroundColor: const Color(0xffd1a824),
@@ -28,6 +47,8 @@ class ArticleFormScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              UploadGambarBox(onTap: _pickImage, imagePath: imagePath,),
+              SizedBox(height: 20,),
               // form judul artikel
               Text(
                 'Judul Artikel',
@@ -120,7 +141,7 @@ class ArticleFormScreen extends StatelessWidget {
               ),
             ),
             child: Text(
-              isEdit ? 'Edit' : "Tambah",
+              widget.isEdit ? 'Edit' : "Tambah",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
