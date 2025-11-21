@@ -18,11 +18,11 @@ class ArtikelService {
     );
   }
 
-  static Future<http.Response> getMyArtikel() async {
+  static Future<http.Response> getMyArtikel(int page, int limit) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
-    var url = Uri.parse("$baseUrl/user");
+    var url = Uri.parse("$baseUrl/user?page=$page&limit=$limit");
     return await http.get(
       url,
       headers: {

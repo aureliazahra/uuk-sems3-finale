@@ -239,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 color: Colors.white,
                               ),
                             )
-                          : const Text("Load More"),
+                          : const Text("Load More", style: TextStyle(color: Colors.white),),
                     ),
                   )
                 else

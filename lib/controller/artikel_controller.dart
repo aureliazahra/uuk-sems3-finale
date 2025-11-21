@@ -15,8 +15,8 @@ class ArtikelController {
     }
   }
 
-  static Future<List<Artikel>> getMyArtikel() async {
-    final result = await ArtikelService.getMyArtikel();
+  static Future<List<Artikel>> getMyArtikel(int page, int limit) async {
+    final result = await ArtikelService.getMyArtikel(page, limit);
 
     if (result.statusCode == 200) {
       final data = jsonDecode(result.body)['data'] as List<dynamic>?;

@@ -1,12 +1,57 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:uuk_final_sems3/controller/artikel_controller.dart';
 import 'package:uuk_final_sems3/models/artikel_model.dart';
 import 'package:uuk_final_sems3/screen/articles/form_screen.dart';
 import 'package:uuk_final_sems3/widgets/grid_my_artikel.dart';
+import '../../services/artikel_service.dart';
 
-class MyArticlesScreen extends StatelessWidget {
+class MyArticlesScreen extends StatefulWidget {
   const MyArticlesScreen({super.key});
+
+  @override
+  State<MyArticlesScreen> createState() => _MyArticlesScreenState();
+}
+
+class _MyArticlesScreenState extends State<MyArticlesScreen> {
+  List<Artikel> artikelAll = [];
+  int page = 1;
+  final int limit = 3;
+  bool isLoading = false;
+  bool hasMore = true;
+
+  Future<void> loadArtikel() async {
+    if (isLoading || !hasMore) return;
+
+    setState(() => isLoading = true);
+
+    try {
+      final getArtikel = await ArtikelService.getMyArtikel(page, limit);
+      final totalData = jsonDecode(getArtikel.body)["totalData"];
+
+      final data = await ArtikelController.getMyArtikel(page, limit);
+
+      setState(() {
+        artikelAll.addAll(data);
+        if (artikelAll.length >= totalData) {
+          hasMore = false;
+        } else {
+          page++;
+        }
+      });
+    } catch (e) {
+      debugPrint("Gagal memuat artikel: $e");
+    } finally {
+      setState(() => isLoading = false);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadArtikel();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,25 +152,7 @@ class MyArticlesScreen extends StatelessWidget {
                 //end header list artikel saya
                 //gridview
                 const SizedBox(height: 10),
-                FutureBuilder(
-                  future: ArtikelController.getMyArtikel(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const CircularProgressIndicator();
-                    } else if (snapshot.hasError) {
-                      return Center(
-                        child: Text(
-                          "Terjadi kesalahan: ${snapshot.error}",
-                          style: const TextStyle(color: Colors.red),
-                        ),
-                      );
-                    } else {
-                      final artikelList = snapshot.data ?? [];
-                      final List<Artikel> artikelAll = artikelList.toList();
-                      return GridMyArtikel(artikelList: artikelAll);
-                    }
-                  },
-                ),
+                GridMyArtikel(artikelList: artikelAll),
                 //end grdview
               ],
             ),
