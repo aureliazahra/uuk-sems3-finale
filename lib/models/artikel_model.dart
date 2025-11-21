@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 
-class Blog {
+class Artikel {
   String id, title, date, image, name, description;
 
-  Blog({
+  Artikel({
     required this.id,
     required this.title,
     required this.date,
@@ -12,8 +12,8 @@ class Blog {
     required this.description,
   });
 
-  factory Blog.fromJson(Map<String, dynamic> json) {
-    return Blog(
+  factory Artikel.fromJson(Map<String, dynamic> json) {
+    return Artikel(
       id: json['id'],
       title: json['title'],
       date: json['date'],

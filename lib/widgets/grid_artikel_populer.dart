@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../models/artikel_model.dart';
+import '../../models/artikel_model.dart';
 import '../screen/articles/detail_screen.dart';
 
 class GridArtikelPopuler extends StatelessWidget {
-  final List<Blog> artikelList;
+  final List<Artikel> artikelList;
   const GridArtikelPopuler({super.key, required this.artikelList});
 
   @override
@@ -23,7 +23,10 @@ class GridArtikelPopuler extends StatelessWidget {
         final artikel = artikelList[index];
         return GestureDetector(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(),));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DetailScreen(detailArtikel: artikel,)),
+            );
           },
           child: ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(15),

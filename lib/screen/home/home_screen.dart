@@ -85,10 +85,10 @@ class HomeScreen extends StatelessWidget {
                       return Text('Error: ${snapshot.error}');
                     } else {
                       final artikelList = snapshot.data ?? [];
-                      final List<Blog> artikelPopuler = artikelList
+                      final List<Artikel> artikelPopuler = artikelList
                           .take(4)
                           .toList();
-                      final List<Blog> artikelAll = artikelList.toList();
+                      final List<Artikel> artikelAll = artikelList.toList();
 
                       return Column(
                         children: [

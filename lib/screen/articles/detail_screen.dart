@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:uuk_final_sems3/models/artikel_model.dart';
+
 
 class DetailScreen extends StatelessWidget {
-  const DetailScreen({super.key});
+  final Artikel detailArtikel;
+  const DetailScreen({super.key, required this.detailArtikel});
 
   @override
   Widget build(BuildContext context) {
+    const baseUrl = 'https://api-pariwisata.rakryan.id';
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -18,8 +22,8 @@ class DetailScreen extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        "assets/images/bromo.png",
+                      child: Image.network(
+                        "$baseUrl/${detailArtikel.image}",
                         width: double.infinity,
                         fit: BoxFit.cover,
                       ),
@@ -55,14 +59,14 @@ class DetailScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Gunung Bromo',
+                      detailArtikel.title,
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      "Lihat di Maps",
+                      detailArtikel.title,
                       style: TextStyle(
                         fontSize: 12,
                         color: Color(0xffd1a824),
@@ -82,7 +86,7 @@ class DetailScreen extends StatelessWidget {
                 //deskripsi
                 SizedBox(height: 20),
                 Text(
-                  "Gunung Bromo adalah salah satu destinasi wisata alam paling ikonik di Indonesia, terkenal dengan pemandangan matahari terbitnya yang memukau dan lautan pasir yang luas",
+                  detailArtikel.description,
                   textAlign: TextAlign.justify,
                   style: TextStyle(fontSize: 14),
                 ),
@@ -106,7 +110,7 @@ class DetailScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 10),
-                    Text("Gunung Bromo", style: TextStyle(fontSize: 14)),
+                    Text(detailArtikel.title, style: TextStyle(fontSize: 14)),
                   ],
                 ),
                 SizedBox(height: 10),
@@ -122,7 +126,7 @@ class DetailScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 10),
-                    Text("Author Name", style: TextStyle(fontSize: 14)),
+                    Text(detailArtikel.name, style: TextStyle(fontSize: 14)),
                   ],
                 ),
                 SizedBox(height: 10),
@@ -138,7 +142,7 @@ class DetailScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 10),
-                    Text("26 - 9 - 2025", style: TextStyle(fontSize: 14)),
+                    Text(detailArtikel.date, style: TextStyle(fontSize: 14)),
                   ],
                 ),
                 //end informassi artikel
