@@ -1,11 +1,59 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:uuk_final_sems3/services/artikel_service.dart';
 import 'package:uuk_final_sems3/widgets/grid_artikel_populer.dart';
 import '../../controller/artikel_controller.dart';
 import '../../models/artikel_model.dart';
 import '../../widgets/grid_artikel_all.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<Artikel> artikelAll = [];
+  int page = 1;
+  final int limit = 5;
+  bool isLoading = false;
+  bool hasMore = true;
+  late Future<List<Artikel>> _futureArtikelPopuler;
+
+  Future<void> loadArtikel() async {
+    if (isLoading || !hasMore) return;
+
+    setState(() => isLoading = true);
+
+    try {
+      final getArtikel = await ArtikelService.getArtikel(page, limit);
+      final totalData = jsonDecode(getArtikel.body)["totalData"];
+
+      final data = await ArtikelController.getArtikel(page, limit);
+
+      setState(() {
+        artikelAll.addAll(data);
+        if (artikelAll.length >= totalData) {
+          hasMore = false;
+        } else {
+          page++;
+        }
+      });
+    } catch (e) {
+      debugPrint("Gagal memuat artikel: $e");
+    } finally {
+      setState(() => isLoading = false);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadArtikel();
+    _futureArtikelPopuler = ArtikelController.getArtikel(1, 4);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 FutureBuilder(
-                  future: ArtikelController.getArtikel(),
+                  future: _futureArtikelPopuler,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const CircularProgressIndicator();
@@ -149,33 +197,54 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Artikel lainnya",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                "See all",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Color(0xffd1a824),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          GridArtikelAll(artikelList: artikelAll),
                         ],
                       );
                     }
                   },
                 ),
                 //end gris artiker populer
+                //Grid artikel all
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Artikel lainnya",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "See all",
+                      style: TextStyle(fontSize: 12, color: Color(0xffd1a824)),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                GridArtikelAll(artikelList: artikelAll),
+                //end grid artikel all
+                // tombol load more
+                const SizedBox(height: 10),
+                if (hasMore)
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: isLoading ? null : loadArtikel,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffd1a824),
+                      ),
+                      child: isLoading
+                          ? const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            )
+                          : const Text("Load More"),
+                    ),
+                  )
+                else
+                  Center(child: const Text("Semua artikel sudah dimuat")),
+                // end tombol load more
               ],
             ),
           ),

@@ -4,11 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ArtikelService {
   static final String baseUrl = 'https://api-pariwisata.rakryan.id/blog';
 
-  static Future<http.Response> getArtikel() async {
+  static Future<http.Response> getArtikel(int page, int limit) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
 
-    var url = Uri.parse(baseUrl); //rumah alwan
+    var url = Uri.parse("$baseUrl?page=$page&limit=$limit"); 
     return await http.get(
       url,
       headers: {
