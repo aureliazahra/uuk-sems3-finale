@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uuk_final_sems3/controller/artikel_controller.dart';
+import 'package:uuk_final_sems3/controller/auth_controller.dart';
 import 'package:uuk_final_sems3/widgets/grid_artikel_populer.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -34,14 +35,34 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5),
-                    Text(
-                      'Caramellove',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                    FutureBuilder(
+                      future: AuthController.getProfile(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          final user = snapshot.data!;
+                          return Column(
+                            children: [
+                              Text(
+                                user.name,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Text(
+                                user.username,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          );
+                        }
+                      },
                     ),
-                    Text('caramellove'),
                     SizedBox(height: 20),
                     //end profile
                     Row(
@@ -103,40 +124,38 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Postingan Terbaru',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 15),
-                          FutureBuilder(
-                            future: ArtikelController.getMyArtikel(1, 4),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const CircularProgressIndicator();
-                              } else if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              } else {
-                                final artikelList = snapshot.data ?? [];
-                                return GridArtikelPopuler(
-                                  artikelList: artikelList,
-                                );
-                              }
-                            },
-                          ),
-                        ],
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Postingan Terbaru',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
+                    SizedBox(height: 15),
+                    FutureBuilder(
+                      future: ArtikelController.getMyArtikel(1, 4),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          final artikelList = snapshot.data ?? [];
+                          return GridArtikelPopuler(artikelList: artikelList);
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

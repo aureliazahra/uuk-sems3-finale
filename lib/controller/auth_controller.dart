@@ -7,6 +7,7 @@ import 'package:uuk_final_sems3/screen/home/home_screen.dart';
 import 'package:uuk_final_sems3/services/artikel_service.dart';
 import 'package:uuk_final_sems3/services/auth_service.dart';
 import 'package:uuk_final_sems3/widgets/bottom_navbar.dart';
+import '../models/user_model.dart';
 
 class AuthController {
   static Future<String> register(
@@ -58,5 +59,15 @@ class AuthController {
     }
   }
 
+  static Future<User> getProfile() async {
+    final result = await AuthService.getProfile();
+    final responseData = jsonDecode(result.body);
 
+    if (result.statusCode == 200) {
+      final data = responseData['data'];
+      return User.fromJson(data);
+    } else {
+      throw (responseData['message'] ?? 'Gagal memuat data user');
+    }
+  }
 }
