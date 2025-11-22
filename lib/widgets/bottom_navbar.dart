@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:uuk_final_sems3/screen/articles/my_articles_screen.dart';
+import 'package:uuk_final_sems3/screen/auth/profile_screen.dart';
 import 'package:uuk_final_sems3/screen/home/home_screen.dart';
 
 class BottomNavbar extends StatefulWidget {
@@ -16,7 +17,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
   List<Widget> get _pages => [
     HomeScreen(),
     MyArticlesScreen(),
-    Scaffold(body: Center(child: Text("Halaman Profile"))),
+    ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {

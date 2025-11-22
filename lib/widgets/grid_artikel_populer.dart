@@ -18,7 +18,7 @@ class GridArtikelPopuler extends StatelessWidget {
         mainAxisSpacing: 20,
         childAspectRatio: 0.8,
       ),
-      itemCount: 4,
+      itemCount: artikelList.length,
       itemBuilder: (context, index) {
         final artikel = artikelList[index];
         return GestureDetector(
@@ -29,7 +29,7 @@ class GridArtikelPopuler extends StatelessWidget {
             );
           },
           child: ClipRRect(
-            borderRadius: BorderRadiusGeometry.circular(15),
+            borderRadius: BorderRadius.circular(15),
             child: Stack(
               children: [
                 //foto background wisata
