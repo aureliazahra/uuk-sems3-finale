@@ -70,4 +70,19 @@ class AuthController {
       throw (responseData['message'] ?? 'Gagal memuat data user');
     }
   }
+
+  static Future<String> logout(BuildContext context) async {
+    final result = await AuthService.Logout();
+    final responseData = jsonDecode(result.body);
+
+    if (result.statusCode == 200) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+      return responseData['message'] ?? "Logout berhasil";
+    } else {
+      return (responseData['message'] ?? "Terjadi kesalahan");
+    }
+  }
 }

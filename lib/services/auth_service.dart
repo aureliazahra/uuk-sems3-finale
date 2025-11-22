@@ -47,4 +47,19 @@ class AuthService {
       },
     );
   }
+
+  static Future<http.Response> Logout() async {
+    final url = Uri.parse('$baseUrl/logout');
+
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    return await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+  }
 }

@@ -94,7 +94,14 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         //end buttron edit
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final message = await AuthController.logout(
+                              context,
+                            );
+                            ScaffoldMessenger.of(
+                              context,
+                            ).showSnackBar(SnackBar(content: Text(message)));
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xffd1a824),
                             minimumSize: Size(115, 50),
