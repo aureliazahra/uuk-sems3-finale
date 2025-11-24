@@ -51,6 +51,25 @@ class _ArticleFormScreenState extends State<ArticleFormScreen> {
     ).showSnackBar(SnackBar(content: Text(message)));
   }
 
+  Future<void> _update(String title, String description) async {
+    File? imageFile;
+    if (imagePath != null) {
+      imageFile = File(imagePath!);
+    }
+
+    final message = await ArtikelController.updateArtikel(
+      id: widget.artikelId!,
+      title: title.isNotEmpty ? title : null,
+      description: description.isNotEmpty ? description : null,
+      image: imageFile,
+      context: context,
+    );
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -166,6 +185,8 @@ class _ArticleFormScreenState extends State<ArticleFormScreen> {
 
               if (widget.isEdit == false) {
                 _create(title, description);
+              } else if (widget.isEdit && widget.artikelId != null) {
+                _update(title, description);
               }
             },
             style: ElevatedButton.styleFrom(

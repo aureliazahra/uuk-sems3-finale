@@ -59,6 +59,38 @@ class ArtikelService {
     return await request.send();
   }
 
+  static Future<http.StreamedResponse> updateArtikel({
+    String? id,
+    File? image,
+    String? title,
+    String? description,
+  }) async {
+    final uri = Uri.parse('$baseUrl/update/$id');
+
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    var request = http.MultipartRequest('PUT', uri);
+
+    request.headers['Authorization'] = 'Bearer $token';
+
+    if (title != null && title.isNotEmpty) {
+      request.fields['title'] = title;
+    }
+
+    if (description != null && description.isNotEmpty) {
+      request.fields['description'] = description;
+    }
+
+    if (image != null) {
+      request.files.add(await http.MultipartFile.fromPath('image', image.path));
+    }
+
+    request.fields['date'] = DateTime.now().toString();
+
+    return await request.send();
+  }
+
   static Future<http.Response> deleteArtikel(String id) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
