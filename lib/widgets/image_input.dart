@@ -13,7 +13,7 @@ class UploadGambarBox extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: MediaQuery.of(context).size.width / 2,
-        width: double.infinity,
+        width: double.infinity, 
         decoration: BoxDecoration(
           color: Colors.grey,
           borderRadius: BorderRadius.circular(12),

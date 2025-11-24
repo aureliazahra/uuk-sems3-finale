@@ -26,7 +26,7 @@ class ArtikelController {
     if (result.statusCode == 200) {
       final data = jsonDecode(result.body)['data'] as List<dynamic>?;
       return data?.map((item) => Artikel.fromJson(item)).toList() ?? [];
-    } else if (result.statusCode == 40) {
+    } else if (result.statusCode == 400) {
       throw ('Kamu belum mempunyai artikel');
     } else {
       throw ('Gagal memuat data artikel');

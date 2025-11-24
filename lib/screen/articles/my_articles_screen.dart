@@ -139,7 +139,7 @@ class _MyArticlesScreenState extends State<MyArticlesScreen> {
                         size: 20,
                       ),
                       label: Text(
-                        "baca Artikel",
+                        "Buat Artikel",
                         style: TextStyle(
                           color: Color(0xffd1a824),
                           fontWeight: FontWeight.w600,

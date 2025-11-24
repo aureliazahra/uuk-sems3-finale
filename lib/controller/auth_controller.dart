@@ -26,7 +26,12 @@ class AuthController {
       );
       return responseData['message'] ?? "Registrasi Berhasil!";
     } else {
-      return (responseData['message'] ?? "Terjadi kesalahan");
+      if (result.statusCode == 400) {
+        final firstError = responseData['errors'][0];
+        return (firstError['message'] ?? "Terjadi Kesalahan");
+      } else {
+        return (responseData['message'] ?? "Terjadi Kesalahan");
+      }
     }
   }
 
