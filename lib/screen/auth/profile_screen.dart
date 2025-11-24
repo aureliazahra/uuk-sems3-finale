@@ -93,6 +93,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                         ),
                         //end buttron edit
+                        //nbutton logout
                         ElevatedButton(
                           onPressed: () async {
                             final message = await AuthController.logout(
@@ -123,7 +124,7 @@ class ProfileScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        //nbutton logout
+
                         //end buttom logout
                       ],
                     ),

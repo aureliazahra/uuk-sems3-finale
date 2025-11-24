@@ -10,13 +10,21 @@ class UploadGambarBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         height: MediaQuery.of(context).size.width / 2,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.grey,
           borderRadius: BorderRadius.circular(12),
+          image: imagePath != null
+          ? DecorationImage(
+            image: FileImage(
+              File(imagePath!),
+              ), 
+              fit: BoxFit.cover
+              )
+              : null,
         ),
         child: imagePath == null
             ? Column(
@@ -24,6 +32,14 @@ class UploadGambarBox extends StatelessWidget {
                 children: const [
                   Icon(Icons.image, size: 70, color: Colors.black54),
                   SizedBox(height: 8),
+                  Text(
+                    "Upload Gambar",
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500
+                    ),
+                  )
                 ],
               )
             : null,

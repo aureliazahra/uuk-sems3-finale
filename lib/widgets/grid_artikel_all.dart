@@ -8,7 +8,7 @@ class GridArtikelAll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const basedUrl = 'https://api-pariwisata-rakryan.id';
+    const basedUrl = 'https://api-pariwisata.rakryan.id';
     return GridView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
